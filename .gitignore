@@ -1,0 +1,16 @@
+.idea
+.idea/Trade4THS.iml
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/workspace.xml
+
+build/
+dist/
+*.pyc
+*.spec
+*.db
+.ipynb_checkpoints/
+.git
+*.zip
+__pycache__/
