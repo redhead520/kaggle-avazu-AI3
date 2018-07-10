@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.utils import check_random_state 
 import time
-import sys
+import sys, os
 from joblib import dump, load
 
 sample_pct = .05
@@ -15,13 +15,15 @@ xgb_n_trees = 300
 #where we can find training, test, and sampleSubmission.csv
 raw_data_path = '/home/hhf/code/AI/12.projects/02.CTR/data/'
 #where we store results -- require about 130GB
-tmp_data_path = './output/'
+tmp_data_path = '/home/hhf/code/AI/12.projects/02.CTR/kaggle-avazu-AI3/Reference_Projects/kaggle-avazu-owenzhang/output/'
 
 #path to external binaries. Please see dependencies in the .pdf document
 fm_path = ' ~/Downloads/guestwalk/kaggle-2014-criteo/fm'
 xgb_path = '/home/zzhang/Downloads/xgboost/wrapper'
 vw_path = '~/vowpal_wabbit/vowpalwabbit/vw '
 
+if not os.path.exists(tmp_data_path):
+    os.mkdir(tmp_data_path)
 
 try:
     params=load(tmp_data_path + '_params.joblib_dat')
@@ -38,6 +40,7 @@ def print_help():
 def main():
     if sys.argv[1] == '-set_params' and len(sys.argv) == 4:
         try:
+            print(sys.argv)
             tvh = sys.argv[2]
             sample_pct = float(sys.argv[3])
             dump({'pct': sample_pct, 'tvh':tvh}, tmp_data_path + '_params.joblib_dat')
@@ -472,7 +475,10 @@ def calc_exptv(t0, vn_list, last_day_only=False, add_count=False):
             vn_key = vn
             t1 = t0a.ix[filter_t, :].copy()
             filter_t2 = np.logical_and(t1.day.values != day_v, t1.day.values < 31)
-            
+            print('=======[{}]'.format(t0.shape))
+            print('=======[{}]'.format(t1.shape))
+            print('====>', len(list(filter_t2)))
+            print('====>',len(list(t0a.day.values)))
             if vn == 'app_or_web':
                 day_exps[day_v][vn_key] = calcTVTransform(t1, vn, 'click', cred_k, filter_t2)
             else:

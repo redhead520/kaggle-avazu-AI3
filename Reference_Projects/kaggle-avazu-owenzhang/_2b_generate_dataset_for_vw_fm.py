@@ -13,7 +13,7 @@ import os
 from joblib import dump, load
 
 t0 = load(utils.tmp_data_path + 't0.joblib_dat')
-print "t0 loaded with shape", t0.shape
+print("t0 loaded with shape", t0.shape)
 
 t0['dev_id_cnt2'] = np.minimum(t0.cnt_dev_id.astype('int32').values, 300)
 t0['dev_ip_cnt2'] = np.minimum(t0.cnt_dev_ip.astype('int32').values, 300)
@@ -27,7 +27,7 @@ t0['device_ip_only_hour_for_day'] = t0.cnt_device_ip_day_hour.values == t0.cnt_d
 
 vns0 = ['app_or_web', 'banner_pos', 'C1', 'C15', 'C16', 'C17', 'C18', 'C19', 'C20', 'C21']
 for vn in vns0 + ['C14']:
-    print vn
+    print(vn)
     vn2 = '_A_' + vn
     t0[vn2] = np.add(t0['app_site_id'].values, t0[vn].astype('string').values)
     t0[vn2] = t0[vn2].astype('category')
@@ -58,10 +58,10 @@ for vn in vns1:
     _cat = np.asarray(_cat, dtype='int32')
     _cat1 = _cat + idx_base
     t3a[vn] = _cat1
-    print vn, idx_base, _cat1.min(), _cat1.max(), np.unique(_cat).size
+    print(vn, idx_base, _cat1.min(), _cat1.max(), np.unique(_cat).size)
     idx_base += _cat.max() + 1
 
-print "to save t3a ..."
+print("to save t3a ...")
 t3a_save = {}
 t3a_save['t3a'] = t3a
 t3a_save['idx_base'] = idx_base

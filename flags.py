@@ -12,17 +12,20 @@ current_time = datetime.datetime.now(tz)
 
 def parse_args(check=True):
     parser = argparse.ArgumentParser()
-    parser.add_argument('--output_dir', type=str, default='./output',
+    parser.add_argument('--output_dir', type=str, default='/home/hhf/code/AI/12.projects/02.CTR/kaggle-avazu-AI3/output',
                         help='path to save log and checkpoint.')
 
-    parser.add_argument('--data_dir',  type=str, default='/home/hhf/code/AI/12.projects/02.CTR/data/',
-                        help='path to save log and checkpoint.')
+    parser.add_argument('--data_dir',  type=str, default='/home/hhf/code/AI/12.projects/02.CTR/kaggle-avazu-AI3/data/',
+                        help='the path of raw data(contain test dataset and train dataset)')
 
     parser.add_argument('--train_file',  type=str, default='train.csv',
-                        help='path to save log and checkpoint.')
+                        help='the name of train dataset')
 
     parser.add_argument('--test_file',  type=str, default='test.csv',
-                        help='path to save log and checkpoint.')
+                        help='the name of test dataset')
+
+    parser.add_argument('--fe_data_file',  type=str, default='FE_data_{}',
+                        help='the prefix of the data when feature engineering finished!')
 
     parser.add_argument('--batch_size', type=int, default=500,
                         help='batch size to use.')

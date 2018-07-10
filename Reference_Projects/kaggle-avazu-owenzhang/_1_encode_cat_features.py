@@ -18,9 +18,9 @@ raw_data_path = utils.raw_data_path
 tmp_data_path = utils.tmp_data_path
 
 
-# train_data = pd.read_csv(raw_data_path + "train.csv")
-test_data = pd.read_csv(raw_data_path + "test.csv")
-train_data = test_data.copy()
+train_data = pd.read_csv(raw_data_path + "train.csv", nrows=1e5)
+test_data = pd.read_csv(raw_data_path + "test.csv", nrows=1e5)
+# train_data = test_data.copy()
 
 # 从训练样本中随机抽取 utils.sample_pct 的样本来训练, 1.0 表示全部,
 if utils.sample_pct < 1.0:

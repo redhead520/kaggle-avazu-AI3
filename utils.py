@@ -4,6 +4,7 @@ import os
 from flags import parse_args
 import pandas as pd
 import numpy as np
+import gc
 
 FLAGS, unparsed = parse_args()
 
@@ -22,21 +23,24 @@ def csv2df(file, limited=0):
         return pd.DataFrame(data, columns=columns)
 
 
-def generator_data(test=False, batch_size=0):
-    file_path = test_file if test else train_file
+def generator_data(file_path=train_file, batch_size=0):    
     batch_size = batch_size if batch_size else FLAGS.batch_size
     with open(file_path, 'r') as f:
         columns = f.readline().strip().split(',')
         strat_index = 0
         data = []
         for line in f:
+            if not line:
+                break
             strat_index += 1
             data.append(line.strip().split(","))
+            if strat_index % 1e5 == 0:
+                gc.collect() 
             if strat_index % batch_size == 0:
-                yield pd.DataFrame(data, columns=columns), columns
+                yield pd.DataFrame(data, columns=columns)
                 data=[]
         if data:
-            yield pd.DataFrame(data, columns=columns), columns
+            yield pd.DataFrame(data, columns=columns)
 
 
 

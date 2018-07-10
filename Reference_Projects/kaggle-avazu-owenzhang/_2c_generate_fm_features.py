@@ -45,7 +45,7 @@ day_bgn = 22
 day_end = 32
 
 fm_vecs = {}
-for day_v in xrange(day_bgn, day_end):
+for day_v in range(day_bgn, day_end):
     fm_vecs[day_v] = {}
     for vns_name in vns.keys():
         vns2 = vns[vns_name]
